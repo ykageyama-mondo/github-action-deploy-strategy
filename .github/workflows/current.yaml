@@ -7,13 +7,6 @@ jobs:
     permissions:
       contents: read
       deployments: read
-    environment:
-      name: ${{ matrix.environment }}
-    concurrency:
-      group: ${{ matrix.environment }}-deploy
-      cancel-in-progress: false
-    env:
-      ENV_NAME: ${{ matrix.environment }}
     steps:
       - name: Checkout
         uses: actions/checkout@v4
