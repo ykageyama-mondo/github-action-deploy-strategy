@@ -11,7 +11,9 @@ jobs:
       cancel-in-progress: false
     steps:
       - name: Echo
-        run: echo "Deploying to ${{ matrix.environment }}"
+        env:
+          environment: ${{ matrix.environment }}
+        run: echo "Deploying to $environment"
     strategy:
       max-parallel: 1
       matrix:
