@@ -24,7 +24,3 @@ jobs:
             name: UAT
           - environment: Prod
             name: Prod
-        environment:
-          - Dev
-          - UAT
-          - Prod
