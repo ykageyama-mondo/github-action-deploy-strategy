@@ -1,0 +1,25 @@
+name: current
+on:
+  workflow_dispatch: {}
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    environment:
+      name: ${{ matrix.environment }}
+    concurrency:
+      group: ${{ matrix.environment }}-deploy
+      cancel-in-progress: false
+    steps:
+      - name: Echo
+        run: echo "Deploying to ${{ matrix.environment }}"
+    strategy:
+      max-parallel: 1
+      matrix:
+        include:
+          - environment: Dev
+          - environment: UAT
+          - environment: Prod
+        environment:
+          - Dev
+          - UAT
+          - Prod
