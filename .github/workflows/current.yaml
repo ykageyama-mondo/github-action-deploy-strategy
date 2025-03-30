@@ -7,6 +7,8 @@ jobs:
     permissions:
       contents: read
       deployments: read
+    environment:
+      name: ${{ matrix.environment }}
     env:
       ENV_NAME: ${{ matrix.environment }}
     steps:
@@ -18,10 +20,4 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        include:
-          - environment: Dev
-            name: Dev
-          - environment: UAT
-            name: UAT
-          - environment: Prod
-            name: Prod
+        environment: [Dev, UAT, Prod]
