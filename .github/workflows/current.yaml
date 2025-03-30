@@ -9,18 +9,21 @@ jobs:
     concurrency:
       group: ${{ matrix.environment }}-deploy
       cancel-in-progress: false
+    env:
+      ENV_NAME: ${{ matrix.environment }}
     steps:
       - name: Echo
-        env:
-          environment: ${{ matrix.environment }}
-        run: echo "Deploying to $environment"
+        run: echo "Deploying to $ENV_NAME"
     strategy:
       max-parallel: 1
       matrix:
         include:
           - environment: Dev
+            name: Dev
           - environment: UAT
+            name: UAT
           - environment: Prod
+            name: Prod
         environment:
           - Dev
           - UAT
