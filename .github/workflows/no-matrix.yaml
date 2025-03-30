@@ -1,0 +1,52 @@
+name: no-matrix
+on:
+  workflow_dispatch: {}
+jobs:
+  release-Dev:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: read
+    environment:
+      name: Dev
+    concurrency:
+      group: Dev-deploy
+      cancel-in-progress: false
+    env:
+      ENV_NAME: Dev
+    steps:
+      - name: Echo
+        run: echo "Deploying to $ENV_NAME"
+  release-UAT:
+    runs-on: ubuntu-latest
+    needs: release-Dev
+    permissions:
+      contents: read
+      deployments: read
+    environment:
+      name: UAT
+    concurrency:
+      group: UAT-deploy
+      cancel-in-progress: false
+    env:
+      ENV_NAME: UAT
+    steps:
+      - name: Echo
+        run: echo "Deploying to $ENV_NAME"
+  release-Prod:
+    runs-on: ubuntu-latest
+    needs: release-UAT
+    permissions:
+      contents: read
+      deployments: read
+    environment:
+      name: Prod
+    concurrency:
+      group: Prod-deploy
+      cancel-in-progress: false
+    env:
+      ENV_NAME: Prod
+    steps:
+      - name: Echo
+        run: echo "Deploying to $ENV_NAME"
+
