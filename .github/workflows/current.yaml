@@ -4,6 +4,9 @@ on:
 jobs:
   release:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      deployments: read
     environment:
       name: ${{ matrix.environment }}
     concurrency:
@@ -12,8 +15,11 @@ jobs:
     env:
       ENV_NAME: ${{ matrix.environment }}
     steps:
-      - name: Echo
-        run: echo "Deploying to $ENV_NAME"
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          ref: ${{ github.sha }}
+          fetch-depth: 0
     strategy:
       max-parallel: 1
       matrix:
