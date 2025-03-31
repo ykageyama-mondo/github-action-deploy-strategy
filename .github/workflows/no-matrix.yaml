@@ -35,7 +35,7 @@ jobs:
         run: echo "Deploying to $ENV_NAME"
   release-Prod:
     runs-on: ubuntu-latest
-    needs: release-UAT
+    needs: release-Dev
     permissions:
       contents: read
       deployments: read
@@ -49,4 +49,3 @@ jobs:
     steps:
       - name: Echo
         run: echo "Deploying to $ENV_NAME"
-
